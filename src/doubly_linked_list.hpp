@@ -5,9 +5,11 @@
 
 using namespace std;
 
+//Construtor Nó da lista duplamente encadeada.
 template<class T>
 DoublyLinkedList<T>::Node::Node(const T& value) : value {value}, next{nullptr}, prev{nullptr} {}
 
+//Destruidor Nó da lista duplamente encadeada.
 template<class T>
 DoublyLinkedList<T>::Node::~Node() {
     if(next != nullptr) {
@@ -15,9 +17,11 @@ DoublyLinkedList<T>::Node::~Node() {
     }
 }
 
+//Construtor padrão da lista duplamente encadeada.
 template<class T>
 DoublyLinkedList<T>::DoublyLinkedList() : head{nullptr}, tail{nullptr}, _size(0) {}
 
+//Destruidor da lista duplamente encadeada.
 template<class T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
 
@@ -26,6 +30,7 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
     }
 }
 
+//Adiciona um elemento ao início da lista.
 template<class T>
 void DoublyLinkedList<T>::push_front(const T& value) {
 
@@ -44,21 +49,23 @@ void DoublyLinkedList<T>::push_front(const T& value) {
     _size++;
 }
 
+//Obtém o tamanho da lista.
 template<class T>
 size_t DoublyLinkedList<T>::size() const {
 
     return _size;
 } 
 
+//Verifica se a lista está vazia.
 template<class T>
 bool DoublyLinkedList<T>::empty() const {
 
     return size() == 0;
 } 
 
+//Imprime os elementos da lista.
 template<class T>
 void DoublyLinkedList<T>::print() const {
-//for (auto& v : *this) {}
 
     auto pos = head;
 
@@ -71,6 +78,7 @@ void DoublyLinkedList<T>::print() const {
     cout << "Null " << endl;
 } 
 
+//Adiciona um elemento ao final da lista.
 template<class T>
 void DoublyLinkedList<T>::push_back(const T& value) {
 
@@ -87,6 +95,7 @@ void DoublyLinkedList<T>::push_back(const T& value) {
      _size++;
 }
 
+//Remove o primeiro elemento da lista.
 template<class T>  
 void DoublyLinkedList<T>::pop_front() {
     if(empty() ) {
@@ -109,6 +118,7 @@ void DoublyLinkedList<T>::pop_front() {
     _size--;
 }
 
+//Remove o último elemento da lista.
 template<class T>
 void DoublyLinkedList<T>::pop_back() {
 
@@ -132,16 +142,19 @@ void DoublyLinkedList<T>::pop_back() {
     _size--;
 } 
 
+//Iterador da lista duplamente encadeada. Permite a navegação e manipulação dos elementos da lista.
 template<class T>
 template<class U>
 DoublyLinkedList<T>::Iterator<U>::Iterator(U* ptr, bool end) : node{ptr}, end{end} {}
   
+//Desreferencia o iterador. Retorna: Referência ao valor armazenado no nó atual.
 template<class T>
 template<class U>
 auto& DoublyLinkedList<T>::Iterator<U>::operator*() const {
     return node->value;
 }
 
+// Incrementa o iterador para o próximo nó. Retorna: Referência ao iterador atualizado.
 template<class T>
 template<class U>
 DoublyLinkedList<T>::Iterator<U>&DoublyLinkedList<T>::Iterator<U>::operator++() {
@@ -152,11 +165,11 @@ DoublyLinkedList<T>::Iterator<U>&DoublyLinkedList<T>::Iterator<U>::operator++() 
     } else {
 
         node = node->next;
-
     }
     return *this;
 }
 
+//Decrementa o iterador para o nó anterior. Retorna: Referência ao iterador atualizado.
 template<class T>
 template<class U>
 DoublyLinkedList<T>::Iterator<U>&DoublyLinkedList<T>::Iterator<U>::operator--() {
@@ -171,13 +184,15 @@ DoublyLinkedList<T>::Iterator<U>&DoublyLinkedList<T>::Iterator<U>::operator--() 
     return *this;
 }
 
+//Compara dois iteradores para verificar se são iguais.
 template<class T>
 template<class U>
 bool DoublyLinkedList<T>::Iterator<U>::operator==(const Iterator<U>& other) const {
 
     return node == other.node and end == other.end;
 } 
-  
+
+//Compara dois iteradores para verificar se são diferentes.
 template<class T>
 template<class U>
 bool DoublyLinkedList<T>::Iterator<U>::operator!=(const Iterator<U>& other) const {
@@ -185,28 +200,31 @@ bool DoublyLinkedList<T>::Iterator<U>::operator!=(const Iterator<U>& other) cons
     return not(*this == other);
 } 
 
-template<class T>
 //const DoublyLinkedList<T>::begin() const -> const_iterator {}
+template<class T>
 typename DoublyLinkedList<T>::const_iterator DoublyLinkedList<T>::begin() const {
     return const_iterator(head, empty());
 }
   
+//Retorna um iterador para o início da lista (apontando para o primeiro nó).
 template<class T>
 auto DoublyLinkedList<T>::begin() -> iterator {
     return iterator(head, empty());
 }
 
+//Retorna um iterador para o final da lista (apontando para após o último nó).
 template<class T>
 auto DoublyLinkedList<T>::end() -> iterator {
     return iterator(tail, true);
 } 
 
-template<class T>
 //auto DoublyLinkedList<T>::end() const -> const_iterator {
+template<class T>
 typename DoublyLinkedList<T>::const_iterator DoublyLinkedList<T>::end() const {
     return const_iterator(tail, true);
 }
 
+//Insere um elemento em uma posição específica da lista.
 template<class T>
 void DoublyLinkedList<T>::insert(iterator pos, const T& value) {
 
@@ -233,6 +251,7 @@ void DoublyLinkedList<T>::insert(iterator pos, const T& value) {
     _size++;
 } 
 
+//Remove uma faixa de elementos da lista, definida pelos iteradores.
 template<class T>
 void DoublyLinkedList<T>::erase(iterator first, iterator last) {
 
@@ -276,7 +295,7 @@ void DoublyLinkedList<T>::erase(iterator first, iterator last) {
     _size -= num_elementos_removidos;
 }
 
-  
+//Calcula a distância entre dois iteradores.
 template<class T>
 template<class U>
 size_t DoublyLinkedList<T>::Iterator<U>::operator-(const Iterator<U> other) const {
@@ -290,6 +309,7 @@ size_t DoublyLinkedList<T>::Iterator<U>::operator-(const Iterator<U> other) cons
     return count;
 }
 
+//Retorna um iterador avançado por um número específico de posições.
 template<class T>
 template<class U>
 DoublyLinkedList<T>::Iterator<U> DoublyLinkedList<T>::Iterator<U>::operator+(size_t offset) const {
@@ -300,6 +320,7 @@ DoublyLinkedList<T>::Iterator<U> DoublyLinkedList<T>::Iterator<U>::operator+(siz
     return it;
 }
 
+//Retorna um iterador retrocedido por um número específico de posições.
 template<class T>
 template<class U>
 DoublyLinkedList<T>::Iterator<U> DoublyLinkedList<T>::Iterator<U>::operator-(size_t offset) const {
@@ -310,8 +331,8 @@ DoublyLinkedList<T>::Iterator<U> DoublyLinkedList<T>::Iterator<U>::operator-(siz
     return it;
 }
 
+//Encontra um item na lista e retorna um iterador para ele.
 template<class T>
-//typename DoublyLinkedList<T>::iterator
 auto DoublyLinkedList<T>::find(const T& item) -> iterator {
 
     auto it = begin();
@@ -328,8 +349,8 @@ auto DoublyLinkedList<T>::find(const T& item) -> iterator {
     return it;
 }
 
+//Encontra um item na lista e retorna um iterador para ele.
 template<class T>
-//typename DoublyLinkedList<T>::iterator
 auto DoublyLinkedList<T>::find(const T& item) const -> const_iterator {
 
     auto it = begin();
@@ -345,11 +366,13 @@ auto DoublyLinkedList<T>::find(const T& item) const -> const_iterator {
     return it;
 } 
 
+//Verifica se um item existe na lista.
 template<class T>
 bool DoublyLinkedList<T>::contains(const T& item) const {
     return (find(item) != this->end());
 }
   
+//Acessa um elemento por seu índice.
 template<class T>
 T& DoublyLinkedList<T>::operator[](size_t index) {
 
@@ -359,6 +382,7 @@ T& DoublyLinkedList<T>::operator[](size_t index) {
     return *(begin() + index);
 }
 
+//Acessa um elemento por seu índice.
 template<class T>
 const T& DoublyLinkedList<T>::operator[](size_t index) const {
 
@@ -369,12 +393,14 @@ const T& DoublyLinkedList<T>::operator[](size_t index) const {
     return *(begin() + index);
 } 
 
+//Remove todos os elementos da lista.
 template<class T>
 void DoublyLinkedList<T>::clear() {
 
     erase(begin(), end());
 }
   
+//Construtor de cópia da lista duplamente encadeada.
 template<class T>
 DoublyLinkedList<T>::DoublyLinkedList(const DoublyLinkedList<T>& list) : head{nullptr}, tail{nullptr}, _size(0) {
 
@@ -383,6 +409,7 @@ DoublyLinkedList<T>::DoublyLinkedList(const DoublyLinkedList<T>& list) : head{nu
     }
 } 
 
+//Operador de atribuição para copiar uma lista duplamente encadeada.
 template<class T>
 DoublyLinkedList<T>& DoublyLinkedList<T>::operator=(const DoublyLinkedList<T>& list) {
 

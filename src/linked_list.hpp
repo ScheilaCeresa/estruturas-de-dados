@@ -14,7 +14,6 @@ template<class T>
 LinkedList<T>::~LinkedList() {
 
     if (head != nullptr) {
-
         delete head;
     }
 }
@@ -24,7 +23,6 @@ LinkedList<T>::Node::Node(const T& value) : value{value}, next{nullptr} {}
 
 template<class T>
 LinkedList<T>::Node::~Node() {
-
     if(next != nullptr) {
         delete next;
     }
@@ -32,13 +30,11 @@ LinkedList<T>::Node::~Node() {
 
 template<class T>
 bool LinkedList<T>::empty() const {
-
     return size() == 0;
 }
 
 template<class T>
 size_t LinkedList<T>::size() const{
-
     return _size;
 }
 
@@ -100,7 +96,6 @@ template<class T>
 void LinkedList<T>::pop_front() {
 
     if (empty() ) {
-
         throw std::out_of_range("A lista está vazia");
     }
 
@@ -141,7 +136,6 @@ void LinkedList<T>::remove(size_t index) {
     _size--;
 }
 
-//acessar elemento na posição especifica;
 template<class T>
 T & LinkedList<T>::operator[](size_t index) {
 
@@ -199,16 +193,11 @@ T& LinkedList<T>::find(const T& item) {
     auto pos = head;
 
     while (pos != nullptr) {
-
         if (pos->value == item) {
-
             return pos->value;
-
         }
-
         pos = pos->next;
     }
-
     throw std::out_of_range("Elemento não encontrado");
 }
 
@@ -218,15 +207,11 @@ bool LinkedList<T>::contains(const T& item) const {
     auto pos = head;
 
     while (pos != nullptr) {
-
         if (pos->value == item) {
-
             return true;
         }
-
         pos = pos->next;
     }
-
     return false;
 }
 
@@ -234,14 +219,13 @@ template<class T>
 void LinkedList<T>::clear() {
 
     if (not empty()) {
-
         delete head;
         _size = 0;
         head = nullptr;
     }
 }
 
-//funcao de copia;
+//função de copia;
 template<class T>
 LinkedList<T>::LinkedList(const LinkedList& other) : head{nullptr}, _size(other.size()) {
 
@@ -254,11 +238,8 @@ LinkedList<T>::LinkedList(const LinkedList& other) : head{nullptr}, _size(other.
         auto pos = head;
 
         while(other_pos != nullptr) {
-
             pos->next = new Node(other_pos->value);
-
             pos = pos->next;
-
             other_pos = other_pos->next;
         }
     }

@@ -8,16 +8,12 @@ using namespace std;
 
 template <class T>
 VectorList<T>::VectorList(size_t capacity) : data(new T[capacity]), _size(0), _capacity(capacity) {
-
     cout << "Criando lista ";
-
 }
 
 template <class T>
 VectorList<T>::~VectorList() {
-
     delete[] data;
-    cout << "Deletando lista. ";
 }
 
 template <class T>
@@ -27,7 +23,6 @@ size_t VectorList<T>::size() const {
 
 template <class T>
 bool VectorList<T>::empty() const {
-
     return size() == 0;
 }
 
@@ -100,7 +95,7 @@ void VectorList<T>::remove(size_t index) {
 
     if (index >= size()) {
 
-        throw std::out_of_range("INDICE INVALIDO");
+        throw std::out_of_range("Índice inválido");
     }
 
     if (index == size() - 1) {
@@ -120,15 +115,10 @@ T& VectorList<T>::find(const T& item) {
 
     for (size_t i = 0; i < size(); i++) {
         if (data[i] == item) {
-            return data[i];  // Retorna uma referência ao item encontrado
+            return data[i]; 
         }
     }
     throw std::out_of_range("Item nao encontrado.");
-    /*if (elemento == nullptr) {
-        throw std::out_of_range("Item nao encontrado. ");
-    }
-    else return *elemento;
-    */
 }
 
 template <class T>
@@ -138,7 +128,7 @@ const T& VectorList<T>::find(const T& item) const {
             return data[i];  
         }
     }
-    throw std::out_of_range("Item nao encontrado.");
+    throw std::out_of_range("Item não encontrado.");
 }
 
 template <class T>
@@ -162,8 +152,7 @@ T& VectorList<T>::operator[](size_t index) {
 
 template <class T>
 void VectorList<T>::clear() {
-    while (not empty())
-    {
+    while (not empty()) {
         pop_back();
     }
 }
