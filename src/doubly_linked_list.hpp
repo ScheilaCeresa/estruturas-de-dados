@@ -37,7 +37,6 @@ void DoublyLinkedList<T>::push_front(const T& value) {
     auto new_node = new Node(value);
 
     if (empty() ) {
-
         tail = new_node;
     } else {
         new_node->next = head;
@@ -45,21 +44,18 @@ void DoublyLinkedList<T>::push_front(const T& value) {
     }
 
     head = new_node;
-
     _size++;
 }
 
 //Obtém o tamanho da lista.
 template<class T>
 size_t DoublyLinkedList<T>::size() const {
-
     return _size;
 } 
 
 //Verifica se a lista está vazia.
 template<class T>
 bool DoublyLinkedList<T>::empty() const {
-
     return size() == 0;
 } 
 
@@ -377,7 +373,7 @@ template<class T>
 T& DoublyLinkedList<T>::operator[](size_t index) {
 
     if(index >= size()) {
-        throw std::out_of_range("Indice invalido");
+        throw std::out_of_range("Índice invalido");
     }
     return *(begin() + index);
 }
@@ -388,7 +384,7 @@ const T& DoublyLinkedList<T>::operator[](size_t index) const {
 
     if (index >= size()) {
 
-        throw std::out_of_range("Indice invalido");
+        throw std::out_of_range("Índice invalido");
     }
     return *(begin() + index);
 } 
