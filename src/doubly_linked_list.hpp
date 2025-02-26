@@ -256,7 +256,7 @@ void DoublyLinkedList<T>::erase(iterator first, iterator last) {
     size_t num_elementos_removidos = last - first;
 
     auto first_node = first.node;
-    auto last_node = last.node;
+    auto last_node = last.end ? nullptr : last.node;
     auto first_prev_node = (--first).node;
     
     if (first_node == head && last_node == nullptr) {
